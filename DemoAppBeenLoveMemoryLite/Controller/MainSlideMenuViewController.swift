@@ -10,24 +10,48 @@ import UIKit
 
 class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDelegate{
     
+ 
+   
+  
+  
+ 
+    
+    
+    
     fileprivate var timer: Timer?
     @IBOutlet weak var nameTextField: UILabel!
     @IBOutlet weak var nameGirlTextField: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-//    var datePicker: UIDatePicker = UIDatePicker()
+    @IBOutlet weak var yearDataLabel: UILabel!
+    @IBOutlet weak var monthDataLabel: UILabel!
+    @IBOutlet weak var weekDataLabel: UILabel!
+    @IBOutlet weak var dayDataLabel: UILabel!
+    @IBOutlet weak var hourDataLabel: UILabel!
+    @IBOutlet weak var minuteDataLabel: UILabel!
+    @IBOutlet weak var secondDataLabel: UILabel!
+    @IBOutlet weak var loveDataLabel: UILabel!
+    
+    //    var datePicker: UIDatePicker = UIDatePicker()
 //    let toolBar = UIToolbar()
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let name = UserDefaults.standard.string(forKey: "name") {
-            nameTextField.text = name
-        }
-        if let nu = UserDefaults.standard.string(forKey: "nu") {
-            nameGirlTextField.text = nu
-        }
-        if let datePicker = UserDefaults.standard.string(forKey: "datePicker") {
-            dateLabel.text = datePicker + "Days"
-        }
+        getUserDefaults()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    func getUserDefaults() {
+        if let name = UserDefaults.standard.string(forKey: "name"), let nu = UserDefaults.standard.string(forKey: "nu"),let datePicker = UserDefaults.standard.string(forKey: "datePicker"),  let loveData  = UserDefaults.standard.string(forKey: "loveData"), let year = UserDefaults.standard.string(forKey: "year"), let month = UserDefaults.standard.string(forKey: "month"), let week = UserDefaults.standard.string(forKey: "week"), let day = UserDefaults.standard.string(forKey: "day"), let hour = UserDefaults.standard.string(forKey: "hour"), let minute = UserDefaults.standard.string(forKey: "minute"), let second = UserDefaults.standard.string(forKey: "second")  {
+            nameTextField.text = name
+            nameGirlTextField.text = nu
+            dateLabel.text = datePicker + "Days"
+            loveDataLabel.text = loveData
+            yearDataLabel.text = year
+            monthDataLabel.text = month
+            weekDataLabel.text = week
+            dayDataLabel.text = day
+            hourDataLabel.text = hour
+            minuteDataLabel.text = minute
+            secondDataLabel.text = second
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -75,6 +99,45 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
             detailMainSlideMenuViewController.delegate = self
         }
     }
+
+    
+//    func senDataPicker() {
+//        yearDataLabel.text = String(Calendar.Component.year.hashValue)
+//        monthDataLabel.text = String(Calendar.Component.month.hashValue)
+//        weekDataLabel.text = String(Calendar.Component.weekOfMonth.hashValue)
+//        dayDataLabel.text = String(Calendar.Component.day.hashValue)
+//        hourDataLabel.text = String(Calendar.Component.hour.hashValue)
+//        minuteDataLabel.text = String(Calendar.Component.minute.hashValue)
+//        secondDataLabel.text = String(Calendar.Component.second.hashValue)
+//}
+    func senDataLove(data: String) {
+        loveDataLabel.text = data
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "dd/MM/yyyy"
+        let srartDate = data
+        let formatedStartDate = dateFormat.date(from: srartDate)
+        let currentDate = Date()
+        let components = Set<Calendar.Component>([.year, .month, .weekOfMonth, .day, .hour, .minute,.second])
+        let differenceOfDate = Calendar.current.dateComponents(components, from:  formatedStartDate!, to: currentDate)
+        yearDataLabel.text = differenceOfDate.year?.description
+        monthDataLabel.text = differenceOfDate.month?.description
+        weekDataLabel.text = differenceOfDate.weekOfMonth?.description
+        dayDataLabel.text = differenceOfDate.day?.description
+        hourDataLabel.text = differenceOfDate.hour?.description
+        minuteDataLabel.text = differenceOfDate.minute?.description
+        secondDataLabel.text = differenceOfDate.second?.description
+        UserDefaults.standard.set(yearDataLabel.text, forKey: "year")
+        UserDefaults.standard.set(monthDataLabel.text, forKey: "month")
+        UserDefaults.standard.set(weekDataLabel.text, forKey: "week")
+        UserDefaults.standard.set(dayDataLabel.text, forKey: "day")
+        UserDefaults.standard.set(hourDataLabel.text, forKey: "hour")
+        UserDefaults.standard.set(minuteDataLabel.text, forKey: "minute")
+        UserDefaults.standard.set(secondDataLabel.text, forKey: "second")
+}
+    func senDataPicker(senData: String) {
+        yearDataLabel.text = senData
+    }
+    
     
 //    @IBAction func dateNumber(_ sender: UIButton) {
 //        var alertController: UIAlertController?

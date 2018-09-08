@@ -9,6 +9,7 @@
 import UIKit
 protocol DatePickerViewControllerDelegate: class {
     func senData(name: String)
+    func senDataLove(data: String)
 }
 class DatePickerViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -16,9 +17,9 @@ class DatePickerViewController: UIViewController {
     weak var delegate: DatePickerViewControllerDelegate!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let dateFormat = DateFormatter()
-        dateFormat.dateFormat = "dd-MM-yyyy"
+        dateFormat.dateFormat = "dd/MM/yyyy"
         nameTextField.text = dateFormat.string(from: datePicker.date)
         // Do any additional setup after loading the view.
     }
@@ -31,21 +32,21 @@ class DatePickerViewController: UIViewController {
     
     @IBAction func saveDatePicker(_ sender: UIButton) {
         delegate.senData(name: String(interval(start: datePicker.date, end: nameTextField.text!)))
+        delegate.senDataLove(data: nameTextField.text!)
+        UserDefaults.standard.set(nameTextField.text!, forKey: "loveData")
         UserDefaults.standard.set(interval(start: datePicker.date, end: nameTextField.text!), forKey: "datePicker")
         dismiss(animated: true, completion: nil)
-    }
-    
+}
     @IBAction func datePickerSelected(_ sender: UIDatePicker) {
         let dateFormat = DateFormatter()
-        dateFormat.dateFormat = "dd-MM-yyyy"
+        dateFormat.dateFormat = "dd/MM/yyyy"
         nameTextField.text = dateFormat.string(from: datePicker.date)
     }
+
     func  interval(start: Date, end: String) -> Int {
         let currentCalendar = Calendar.current
         guard let start = currentCalendar.ordinality(of: .day, in: .era, for: start) else { return 0 }
         guard let end = currentCalendar.ordinality(of: .day, in: .era, for: Date()) else { return 0 }
-        
-        
         return end - start
     }
     /*
