@@ -16,7 +16,6 @@
 		80334189213544BE00CDFE2C /* DemoAppBeenLoveMemoryLiteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80334188213544BE00CDFE2C /* DemoAppBeenLoveMemoryLiteTests.swift */; };
 		80334194213544BE00CDFE2C /* DemoAppBeenLoveMemoryLiteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80334193213544BE00CDFE2C /* DemoAppBeenLoveMemoryLiteUITests.swift */; };
 		803341A52135453500CDFE2C /* MainSlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803341A42135453500CDFE2C /* MainSlideMenuViewController.swift */; };
-		803341A72135455D00CDFE2C /* ContainerSlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803341A62135455D00CDFE2C /* ContainerSlideMenuViewController.swift */; };
 		803341AC21354D8B00CDFE2C /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803341AB21354D8B00CDFE2C /* Meal.swift */; };
 		8058FF6B21378258007ADA7F /* MealTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058FF6A21378258007ADA7F /* MealTableViewController.swift */; };
 		8058FF6D2137827A007ADA7F /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058FF6C2137827A007ADA7F /* MealTableViewCell.swift */; };
@@ -32,6 +31,7 @@
 		8058FF85213793CD007ADA7F /* WeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058FF84213793CD007ADA7F /* WeatherCollectionViewCell.swift */; };
 		805C635E213F65D200537BC9 /* MealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805C635D213F65D200537BC9 /* MealViewController.swift */; };
 		805C6360213F699500537BC9 /* RatingControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805C635F213F699500537BC9 /* RatingControlller.swift */; };
+		80C16DB92146122B00C1F214 /* CropAreaImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C16DB82146122B00C1F214 /* CropAreaImageView.swift */; };
 		80D6A77F2141349E0091DCA7 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D6A77E2141349E0091DCA7 /* DatePickerViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,7 +68,6 @@
 		80334193213544BE00CDFE2C /* DemoAppBeenLoveMemoryLiteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoAppBeenLoveMemoryLiteUITests.swift; sourceTree = "<group>"; };
 		80334195213544BE00CDFE2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		803341A42135453500CDFE2C /* MainSlideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSlideMenuViewController.swift; sourceTree = "<group>"; };
-		803341A62135455D00CDFE2C /* ContainerSlideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerSlideMenuViewController.swift; sourceTree = "<group>"; };
 		803341AB21354D8B00CDFE2C /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		8058FF6A21378258007ADA7F /* MealTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewController.swift; sourceTree = "<group>"; };
 		8058FF6C2137827A007ADA7F /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
@@ -84,6 +83,7 @@
 		8058FF84213793CD007ADA7F /* WeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		805C635D213F65D200537BC9 /* MealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealViewController.swift; sourceTree = "<group>"; };
 		805C635F213F699500537BC9 /* RatingControlller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControlller.swift; sourceTree = "<group>"; };
+		80C16DB82146122B00C1F214 /* CropAreaImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropAreaImageView.swift; sourceTree = "<group>"; };
 		80D6A77E2141349E0091DCA7 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -191,8 +191,8 @@
 				8058FF7021379035007ADA7F /* Controller Weather */,
 				8058FF6921378242007ADA7F /* Cotroller Meal */,
 				803341A42135453500CDFE2C /* MainSlideMenuViewController.swift */,
-				803341A62135455D00CDFE2C /* ContainerSlideMenuViewController.swift */,
 				80D6A77E2141349E0091DCA7 /* DatePickerViewController.swift */,
+				80C16DB82146122B00C1F214 /* CropAreaImageView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -399,12 +399,12 @@
 				805C6360213F699500537BC9 /* RatingControlller.swift in Sources */,
 				803341A52135453500CDFE2C /* MainSlideMenuViewController.swift in Sources */,
 				8058FF7F21379331007ADA7F /* ExtensionCollertionViewWeather.swift in Sources */,
-				803341A72135455D00CDFE2C /* ContainerSlideMenuViewController.swift in Sources */,
 				8058FF85213793CD007ADA7F /* WeatherCollectionViewCell.swift in Sources */,
 				8058FF83213793BF007ADA7F /* WeatherTableViewCell.swift in Sources */,
 				8058FF7D21379311007ADA7F /* ExtensionUIimageView.swift in Sources */,
 				8058FF782137913D007ADA7F /* WeatherViewController.swift in Sources */,
 				8058FF7B213792AA007ADA7F /* ExtensionTimeInterval.swift in Sources */,
+				80C16DB92146122B00C1F214 /* CropAreaImageView.swift in Sources */,
 				8058FF7421379080007ADA7F /* Forecastday.swift in Sources */,
 				80334179213544BD00CDFE2C /* DemoAppBeenLoveMemoryLite.xcdatamodeld in Sources */,
 				8015C7292140C4C60067A319 /* ExtensionDate.swift in Sources */,

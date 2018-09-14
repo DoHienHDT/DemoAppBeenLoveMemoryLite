@@ -17,7 +17,7 @@ class DatePickerViewController: UIViewController {
     weak var delegate: DatePickerViewControllerDelegate!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        datePicker.setValue(UIColor.white, forKeyPath: "textColor")
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "dd/MM/yyyy"
         nameTextField.text = dateFormat.string(from: datePicker.date)

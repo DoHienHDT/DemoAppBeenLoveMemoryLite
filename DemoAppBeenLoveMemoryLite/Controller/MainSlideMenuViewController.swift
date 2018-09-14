@@ -8,13 +8,13 @@
 
 import UIKit
 
-class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDelegate{
+class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
- 
-   
-  
-  
- 
+    
+    
+    
+    
+    
     
     
     
@@ -31,11 +31,21 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
     @IBOutlet weak var secondDataLabel: UILabel!
     @IBOutlet weak var loveDataLabel: UILabel!
     
+    
+    @IBOutlet weak var photoImageBoy: DesignableUI!
+    @IBOutlet weak var imageNam: UIImageView!
+    @IBOutlet weak var photoImageGirl: DesignableUI!
+    
+    @IBOutlet weak var btnTapgetNameA: UIButton!
+    @IBOutlet weak var btnTapgetNameB: UIButton!
+    
+    var tapget: Bool = true
     //    var datePicker: UIDatePicker = UIDatePicker()
-//    let toolBar = UIToolbar()
+    //    let toolBar = UIToolbar()
     override func viewDidLoad() {
         super.viewDidLoad()
         getUserDefaults()
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     func getUserDefaults() {
@@ -75,7 +85,7 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         self.present(alertController!, animated: true, completion: nil)
     }
     
-
+    
     @IBAction func menuBtnGirlName(_ sender: UIButton) {
         var alertController: UIAlertController?
         alertController = UIAlertController(title: "Enter Text", message: "Enter some text below", preferredStyle: .alert)
@@ -99,17 +109,6 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
             detailMainSlideMenuViewController.delegate = self
         }
     }
-
-    
-//    func senDataPicker() {
-//        yearDataLabel.text = String(Calendar.Component.year.hashValue)
-//        monthDataLabel.text = String(Calendar.Component.month.hashValue)
-//        weekDataLabel.text = String(Calendar.Component.weekOfMonth.hashValue)
-//        dayDataLabel.text = String(Calendar.Component.day.hashValue)
-//        hourDataLabel.text = String(Calendar.Component.hour.hashValue)
-//        minuteDataLabel.text = String(Calendar.Component.minute.hashValue)
-//        secondDataLabel.text = String(Calendar.Component.second.hashValue)
-//}
     func senDataLove(data: String) {
         loveDataLabel.text = data
         let dateFormat = DateFormatter()
@@ -133,66 +132,98 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         UserDefaults.standard.set(hourDataLabel.text, forKey: "hour")
         UserDefaults.standard.set(minuteDataLabel.text, forKey: "minute")
         UserDefaults.standard.set(secondDataLabel.text, forKey: "second")
-}
+    }
     func senDataPicker(senData: String) {
         yearDataLabel.text = senData
     }
+    @IBAction func selectedBtnImageA(_ sender: UITapGestureRecognizer) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.delegate = self
+        check = true
+        present(imagePickerController, animated: true , completion:  nil)
+    }
+    @IBAction func selectedBtnImageB(_ sender: UITapGestureRecognizer) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.delegate = self
+        check = false
+
+        present(imagePickerController, animated: true , completion:  nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    var check = true
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        
+        
+        if check
+        {
+            photoImageBoy.image = selectedImage
+            
+        } else {
+            photoImageGirl.image = selectedImage
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+  
     
     
-//    @IBAction func dateNumber(_ sender: UIButton) {
-//        var alertController: UIAlertController?
-//        alertController = UIAlertController(title: "Some Title", message: "Enter a text", preferredStyle: .alert)
-//        alertController?.addTextField(configurationHandler: {(textField) in
-//            self.doDatePicker()
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "dd-MM-yyyy"
-//            textField.inputView = self.datePicker
-//            textField.inputAccessoryView = self.toolBar
-//            textField.text = dateFormatter.string(from: self.datePicker.date)
-//        })
-//        let action = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {[weak self ]
-//             (paramAction: UIAlertAction!) in
-//            if let textFields = alertController?.textFields {
-//                let enteredText = textFields[0].text
-//                self?.dateLabel.text = enteredText
-//
-//            }
-//        }
-//)
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        let startDate = "2016-05-24"
-//        let formatedStartDate = dateFormatter.date(from: startDate)!
-//        let currentDate = Date()
-//        let components = Set<Calendar.Component>([.second, .minute, .weekOfMonth, .hour, .day, .month , .year])
-//        let differenceOfDate = Calendar.current.dateComponents(components, from: (formatedStartDate), to: currentDate)
-//        print(differenceOfDate)
-//
-//        alertController?.addAction(action)
-//        self.present(alertController!, animated: true, completion: nil)
-//    }
-//    func doDatePicker(){
-//        self.datePicker = UIDatePicker(frame: CGRect(x: 0, y: self.view.frame.size.height - 220, width: self.view.frame.size.width, height: 216))
-//        self.datePicker.backgroundColor = UIColor.white
-//        datePicker.datePickerMode = .date
-//        toolBar.sizeToFit()
-//        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donClicked))
-//        toolBar.setItems([doneButton], animated: true)
-//    }
-//    @objc func donClicked(){
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "dd-MM-yyyy"
-//        dateFormatter.dateStyle = .medium
-//        dateFormatter.timeStyle = .none
-//        dateLabel.text = dateFormatter.string(from: datePicker.date)
-//}
+    //    @IBAction func dateNumber(_ sender: UIButton) {
+    //        var alertController: UIAlertController?
+    //        alertController = UIAlertController(title: "Some Title", message: "Enter a text", preferredStyle: .alert)
+    //        alertController?.addTextField(configurationHandler: {(textField) in
+    //            self.doDatePicker()
+    //            let dateFormatter = DateFormatter()
+    //            dateFormatter.dateFormat = "dd-MM-yyyy"
+    //            textField.inputView = self.datePicker
+    //            textField.inputAccessoryView = self.toolBar
+    //            textField.text = dateFormatter.string(from: self.datePicker.date)
+    //        })
+    //        let action = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {[weak self ]
+    //             (paramAction: UIAlertAction!) in
+    //            if let textFields = alertController?.textFields {
+    //                let enteredText = textFields[0].text
+    //                self?.dateLabel.text = enteredText
+    //
+    //            }
+    //        }
+    //)
+    //        let dateFormatter = DateFormatter()
+    //        dateFormatter.dateFormat = "yyyy-MM-dd"
+    //        let startDate = "2016-05-24"
+    //        let formatedStartDate = dateFormatter.date(from: startDate)!
+    //        let currentDate = Date()
+    //        let components = Set<Calendar.Component>([.second, .minute, .weekOfMonth, .hour, .day, .month , .year])
+    //        let differenceOfDate = Calendar.current.dateComponents(components, from: (formatedStartDate), to: currentDate)
+    //        print(differenceOfDate)
+    //
+    //        alertController?.addAction(action)
+    //        self.present(alertController!, animated: true, completion: nil)
+    //    }
+    //    func doDatePicker(){
+    //        self.datePicker = UIDatePicker(frame: CGRect(x: 0, y: self.view.frame.size.height - 220, width: self.view.frame.size.width, height: 216))
+    //        self.datePicker.backgroundColor = UIColor.white
+    //        datePicker.datePickerMode = .date
+    //        toolBar.sizeToFit()
+    //        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donClicked))
+    //        toolBar.setItems([doneButton], animated: true)
+    //    }
+    //    @objc func donClicked(){
+    //        let dateFormatter = DateFormatter()
+    //        dateFormatter.dateFormat = "dd-MM-yyyy"
+    //        dateFormatter.dateStyle = .medium
+    //        dateFormatter.timeStyle = .none
+    //        dateLabel.text = dateFormatter.string(from: datePicker.date)
+    //}
     func senData(name: String) {
         dateLabel.text = name + "Days"
     }
-    @IBAction func leftMenu() {
-        NotificationCenter.default.post(name: NotificationKey.menuClick, object: nil)
-    }
-}
-struct NotificationKey {
-    static let menuClick = NSNotification.Name.init("menuClick")
 }

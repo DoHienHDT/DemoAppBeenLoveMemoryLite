@@ -125,7 +125,7 @@ class MealTableViewController: UITableViewController {
             }
             
             guard let selectedMealcell = sender as? MealTableViewCell else {
-                fatalError("Unexpected sender: \(sender)")
+                fatalError("Unexpected sender: \(String(describing: sender))")
             }
             guard let indexPath = tableView.indexPath(for: selectedMealcell) else {
                 fatalError("The selected cell is not being display be the table")
@@ -136,7 +136,7 @@ class MealTableViewController: UITableViewController {
         case "dissmis":
            os_log("Dissmis", log: OSLog.default, type: .debug)
         default:
-            fatalError("Unexpected Secgue Identifier ; \(segue.identifier))")
+            fatalError("Unexpected Secgue Identifier ; \(String(describing: segue.identifier)))")
         }
     }
     // lưu và tải danh sách bữa ăn
