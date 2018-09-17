@@ -33,7 +33,6 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
     
     
     @IBOutlet weak var photoImageBoy: DesignableUI!
-    @IBOutlet weak var imageNam: UIImageView!
     @IBOutlet weak var photoImageGirl: DesignableUI!
     
     @IBOutlet weak var btnTapgetNameA: UIButton!
@@ -44,7 +43,18 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
     //    let toolBar = UIToolbar()
     override func viewDidLoad() {
         super.viewDidLoad()
+      
         getUserDefaults()
+        
+        do {
+            if let entity = try AppDelegate.context.fetch(Entity.fetchRequest()) as? [Entity] {
+                photoImageBoy.image = entity.last?.image as? UIImage
+                photoImageGirl.image = entity.first?.image as? UIImage
+            }
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -69,7 +79,7 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
     }
     @IBAction func menuBtn(_ sender: UIButton) {
         var alertController: UIAlertController?
-        alertController = UIAlertController(title: "Enter Text", message: "Enter some text below", preferredStyle: .alert)
+        alertController = UIAlertController(title: "࿐bëën lövë mëmörÿ✿‿", message: "", preferredStyle: .alert)
         alertController?.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Enter something"
         })
@@ -88,7 +98,7 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
     
     @IBAction func menuBtnGirlName(_ sender: UIButton) {
         var alertController: UIAlertController?
-        alertController = UIAlertController(title: "Enter Text", message: "Enter some text below", preferredStyle: .alert)
+        alertController = UIAlertController(title: "࿐bëën lövë mëmörÿ✿‿", message: "", preferredStyle: .alert)
         alertController?.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Enter something"
         })
@@ -166,10 +176,12 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         if check
         {
             photoImageBoy.image = selectedImage
-            
         } else {
             photoImageGirl.image = selectedImage
         }
+        let entity = Entity(context: AppDelegate.context)
+        entity.image = photoImageBoy.image
+        AppDelegate.saveContext()
         dismiss(animated: true, completion: nil)
     }
     

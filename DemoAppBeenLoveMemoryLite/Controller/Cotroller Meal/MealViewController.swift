@@ -9,6 +9,8 @@ import UIKit
 import os.log
 class MealViewController: UIViewController , UITextFieldDelegate ,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     var meal: Meal?
+
+    @IBOutlet weak var centerName: NSLayoutConstraint!
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var nameTextField: UITextField!
@@ -38,6 +40,17 @@ class MealViewController: UIViewController , UITextFieldDelegate ,UIImagePickerC
         
         updateSaveButtonSate()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        centerName.constant -= view.bounds.width
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            self.centerName.constant += self.view.bounds.width
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonSate()
