@@ -18,14 +18,8 @@ class MealViewController: UIViewController , UITextFieldDelegate ,UIImagePickerC
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         // có thể bấm nút cancel quay lại mà k lưu thay đổi đối với bữa ăn
-        let ispresentingInAddMealMode = presentationController is UINavigationController
-        if ispresentingInAddMealMode {
           navigationController?.dismiss(animated: true, completion: nil)
-        }else if let owningNavigationController = navigationController{
-            owningNavigationController.popViewController(animated: true)
-        }else{
-            fatalError("The MealViewController is not inside a navigation controller.")
-        }
+      
     }
     @IBOutlet weak var ratingControl: RatingController!
     override func viewDidLoad() {

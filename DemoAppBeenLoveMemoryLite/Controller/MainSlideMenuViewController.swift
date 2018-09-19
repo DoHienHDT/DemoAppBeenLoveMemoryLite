@@ -9,16 +9,7 @@
 import UIKit
 
 class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    fileprivate var timer: Timer?
+
     @IBOutlet weak var nameTextField: UILabel!
     @IBOutlet weak var nameGirlTextField: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -37,19 +28,14 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
     
     @IBOutlet weak var btnTapgetNameA: UIButton!
     @IBOutlet weak var btnTapgetNameB: UIButton!
-    
-    var tapget: Bool = true
-    //    var datePicker: UIDatePicker = UIDatePicker()
-    //    let toolBar = UIToolbar()
+    @IBOutlet weak var photoImageLove: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-      
         getUserDefaults()
-        
         do {
             if let entity = try AppDelegate.context.fetch(Entity.fetchRequest()) as? [Entity] {
-                photoImageBoy.image = entity.last?.image as? UIImage
-                photoImageGirl.image = entity.first?.image as? UIImage
+                photoImageBoy.image = entity.last?.imageBoy as? UIImage
+                photoImageGirl.image = entity.last?.imageGirl as? UIImage
             }
         } catch {
             let nserror = error as NSError
@@ -59,19 +45,45 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         // Do any additional setup after loading the view, typically from a nib.
     }
     func getUserDefaults() {
-        if let name = UserDefaults.standard.string(forKey: "name"), let nu = UserDefaults.standard.string(forKey: "nu"),let datePicker = UserDefaults.standard.string(forKey: "datePicker"),  let loveData  = UserDefaults.standard.string(forKey: "loveData"), let year = UserDefaults.standard.string(forKey: "year"), let month = UserDefaults.standard.string(forKey: "month"), let week = UserDefaults.standard.string(forKey: "week"), let day = UserDefaults.standard.string(forKey: "day"), let hour = UserDefaults.standard.string(forKey: "hour"), let minute = UserDefaults.standard.string(forKey: "minute"), let second = UserDefaults.standard.string(forKey: "second")  {
-            nameTextField.text = name
-            nameGirlTextField.text = nu
+        if let datePicker = UserDefaults.standard.string(forKey: "datePicker") {
             dateLabel.text = datePicker + "Days"
+        }
+        if let name = UserDefaults.standard.string(forKey: "name")   {
+            nameTextField.text = name
+        }
+        if let nu = UserDefaults.standard.string(forKey: "nu") {
+            nameGirlTextField.text = nu
+        }
+        if let loveData = UserDefaults.standard.string(forKey: "loveData") {
             loveDataLabel.text = loveData
+        }
+        if let year = UserDefaults.standard.string(forKey: "year") {
             yearDataLabel.text = year
+        }
+        if let month = UserDefaults.standard.string(forKey: "month") {
             monthDataLabel.text = month
+        }
+        if let week = UserDefaults.standard.string(forKey: "week") {
             weekDataLabel.text = week
+        }
+        if let day = UserDefaults.standard.string(forKey: "day") {
             dayDataLabel.text = day
+        }
+        if let hour = UserDefaults.standard.string(forKey: "hour") {
             hourDataLabel.text = hour
+        }
+        if let minute = UserDefaults.standard.string(forKey: "minute") {
             minuteDataLabel.text = minute
+        }
+        if let second = UserDefaults.standard.string(forKey: "second") {
             secondDataLabel.text = second
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIView.animate(withDuration: 1, delay: 0.25, options: [.autoreverse, .repeat], animations: {
+            self.photoImageLove.frame.origin.y -= 20
+        }, completion: nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -180,7 +192,8 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
             photoImageGirl.image = selectedImage
         }
         let entity = Entity(context: AppDelegate.context)
-        entity.image = photoImageBoy.image
+        entity.imageBoy = photoImageBoy.image
+        entity.imageGirl = photoImageGirl.image
         AppDelegate.saveContext()
         dismiss(animated: true, completion: nil)
     }
