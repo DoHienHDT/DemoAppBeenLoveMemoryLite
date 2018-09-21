@@ -8,10 +8,13 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
+import Photos
+import FirebaseStorage
 class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     var refArtistis: DatabaseReference?
-    
+    lazy var storage = Storage.storage()
     @IBOutlet weak var nameTextField: UILabel!
     @IBOutlet weak var nameGirlTextField: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -32,10 +35,10 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
     @IBOutlet weak var photoImageLove: UIImageView!
     
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         getUserDefaults()
         do {
             if let entity = try AppDelegate.context.fetch(Entity.fetchRequest()) as? [Entity] {
@@ -47,8 +50,8 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
         
-       
-   
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     func getUserDefaults() {
@@ -85,18 +88,18 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         if let second = UserDefaults.standard.string(forKey: "second") {
             secondDataLabel.text = second
         }
-//        let ref = Database.database().reference()
-//        ref.child("dayLove").setValue(["year": yearDataLabel.text,
-//            "month": monthDataLabel.text,
-//            "week": weekDataLabel.text,
-//            "day": dayDataLabel.text,
-//            "hour": hourDataLabel.text,
-//            "minute": minuteDataLabel.text,
-//            "second": secondDataLabel.text])
-//        ref.child("date").setValue(loveDataLabel.text)
-//        ref.child("dateLove").setValue(dateLabel.text)
-//        ref.child("nameBoy").setValue(nameTextField.text)
-//        ref.child("nameGirl").setValue(nameGirlTextField.text)
+        //        let ref = Database.database().reference()
+        //        ref.child("dayLove").setValue(["year": yearDataLabel.text,
+        //            "month": monthDataLabel.text,
+        //            "week": weekDataLabel.text,
+        //            "day": dayDataLabel.text,
+        //            "hour": hourDataLabel.text,
+        //            "minute": minuteDataLabel.text,
+        //            "second": secondDataLabel.text])
+        //        ref.child("date").setValue(loveDataLabel.text)
+        //        ref.child("dateLove").setValue(dateLabel.text)
+        //        ref.child("nameBoy").setValue(nameTextField.text)
+        //        ref.child("nameGirl").setValue(nameGirlTextField.text)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -127,7 +130,7 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         let key = refArtistis?.childByAutoId().key
         let artist = ["id": key,
                       "NameBoy": nameTextField.text
-                      ]
+        ]
         refArtistis?.child(key!).setValue(artist)
     }
     
@@ -189,13 +192,13 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
                       "month": monthDataLabel.text,
                       "week": weekDataLabel.text,
                       "day": dayDataLabel.text,
-                    "hour": hourDataLabel.text,
-                    "minute": minuteDataLabel.text,
-                    "second": secondDataLabel.text
-                      ]
+                      "hour": hourDataLabel.text,
+                      "minute": minuteDataLabel.text,
+                      "second": secondDataLabel.text
+        ]
         let loveData = ["id": key,
                         "loveData": loveDataLabel.text
-                             ]
+        ]
         refArtistis?.child(key!).setValue(artist)
         refArtistis?.child(key!).setValue(loveData)
     }
@@ -214,7 +217,7 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self
         check = false
-
+        
         present(imagePickerController, animated: true , completion:  nil)
     }
     
@@ -232,17 +235,103 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         if check
         {
             photoImageBoy.image = selectedImage
+            if let referenceUrl = info[UIImagePickerControllerOriginalImage] as? URL  {
+                let assets = PHAsset.fetchAssets(withALAssetURLs: [referenceUrl], options: nil)
+                let asset = assets.firstObject
+                asset?.requestContentEditingInput(with: nil, completionHandler: {(contentEditingInput, info) in
+                    let imageFile = contentEditingInput?.fullSizeImageURL
+                    let filePath = Auth.auth().currentUser!.uid +
+                    "/\(Int(Date.timeIntervalSinceReferenceDate * 1000))/\(imageFile!.lastPathComponent)"
+                    let storageRef = self.storage.reference(withPath: filePath)
+                    storageRef.putFile(from: imageFile!, metadata: nil) { (metadata, error) in
+                        if let error = error {
+                            print("Error uploading: \(error)")
+                            return
+                        }
+                        self.uploadSuccess(storageRef, storagePath: filePath)
+                    }
+                    // [END uploadimage]
+                })
+            } else {
+                guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+                guard let imageData = UIImageJPEGRepresentation(image, 0.8) else { return }
+                let imagePath = Storage.storage().reference()
+                imagePath.child("imagesBoy")
+                
+                let metadata = StorageMetadata()
+                metadata.contentType = "image/jpeg"
+                let storageRef = self.storage.reference(withPath: "imagesBoy")
+                storageRef.putData(imageData, metadata: metadata) {
+                    (metadata, error) in
+                    if let error = error {
+                        print(error)
+                        return
+                    }
+                    storageRef.downloadURL(completion: {(url, error) in })
+                    self.uploadSuccess(storageRef, storagePath: "imagesBoy")
+                }
+            }
         } else {
             photoImageGirl.image = selectedImage
+            if let referenceUrl = info[UIImagePickerControllerOriginalImage] as? URL  {
+                let assets = PHAsset.fetchAssets(withALAssetURLs: [referenceUrl], options: nil)
+                let asset = assets.firstObject
+                asset?.requestContentEditingInput(with: nil, completionHandler: {(contentEditingInput, info) in
+                    let imageFile = contentEditingInput?.fullSizeImageURL
+                    let filePath = Auth.auth().currentUser!.uid +
+                    "/\(Int(Date.timeIntervalSinceReferenceDate * 1000))/\(imageFile!.lastPathComponent)"
+                    let storageRef = self.storage.reference(withPath: filePath)
+                    storageRef.putFile(from: imageFile!, metadata: nil) { (metadata, error) in
+                        if let error = error {
+                            print("Error uploading: \(error)")
+                            return
+                        }
+                        self.uploadSuccess(storageRef, storagePath: filePath)
+                    }
+                    // [END uploadimage]
+                })
+            } else {
+                guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+                guard let imageData = UIImageJPEGRepresentation(image, 0.8) else { return }
+                let imagePath = Storage.storage().reference()
+                imagePath.child("imagesGirl")
+                
+                let metadata = StorageMetadata()
+                metadata.contentType = "image/jpeg"
+                let storageRef = self.storage.reference(withPath: "imagesGirl")
+                storageRef.putData(imageData, metadata: metadata) {
+                    (metadata, error) in
+                    if let error = error {
+                        print(error)
+                        return
+                    }
+                    storageRef.downloadURL(completion: {(url, error) in })
+                    self.uploadSuccess(storageRef, storagePath: "imagesGirl")
+                }
+            }
+            
         }
+        
+        
+        
+        
         let entity = Entity(context: AppDelegate.context)
         entity.imageBoy = photoImageBoy.image
         entity.imageGirl = photoImageGirl.image
         AppDelegate.saveContext()
         dismiss(animated: true, completion: nil)
     }
+    func uploadSuccess(_ storageRef: StorageReference, storagePath: String) {
+        print("Upload Succeeded!")
+        storageRef.downloadURL { (url, error) in
+            if let error = error {
+                print("Error getting download URL: \(error)")
+                return
+            }
+        }
+    }
     
-  
+    
     
     
     //    @IBAction func dateNumber(_ sender: UIButton) {
@@ -296,7 +385,7 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         dateLabel.text = name + "Days"
         let key = refArtistis?.childByAutoId().key
         let artist = ["id": key,
-            "dateLove": dateLabel.text
+                      "dateLove": dateLabel.text
         ]
         refArtistis?.child(key!).setValue(artist)
     }

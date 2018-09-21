@@ -10,6 +10,7 @@ target 'DemoAppBeenLoveMemoryLite' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
+  pod 'Firebase/Storage'
 
   target 'DemoAppBeenLoveMemoryLiteTests' do
     inherit! :search_paths
