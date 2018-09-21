@@ -38,6 +38,7 @@
 		80BC4A01214F931A00FD5F76 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BC4A00214F931A00FD5F76 /* LocationSearchTable.swift */; };
 		80C16DB92146122B00C1F214 /* CropAreaImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C16DB82146122B00C1F214 /* CropAreaImageView.swift */; };
 		80D6A77F2141349E0091DCA7 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D6A77E2141349E0091DCA7 /* DatePickerViewController.swift */; };
+		80E54F632154E9A500DD4E64 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80E54F622154E9A500DD4E64 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		80BC4A00214F931A00FD5F76 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		80C16DB82146122B00C1F214 /* CropAreaImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropAreaImageView.swift; sourceTree = "<group>"; };
 		80D6A77E2141349E0091DCA7 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		80E54F622154E9A500DD4E64 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9051BD2C8D48B4ED2ADB1B41 /* Pods-DemoAppBeenLoveMemoryLiteTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoAppBeenLoveMemoryLiteTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoAppBeenLoveMemoryLiteTests/Pods-DemoAppBeenLoveMemoryLiteTests.release.xcconfig"; sourceTree = "<group>"; };
 		AEE634ED0665A587BF2106D5 /* Pods-DemoAppBeenLoveMemoryLiteUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoAppBeenLoveMemoryLiteUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoAppBeenLoveMemoryLiteUITests/Pods-DemoAppBeenLoveMemoryLiteUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EAFEBDD28102883E37F181CC /* Pods_DemoAppBeenLoveMemoryLiteTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoAppBeenLoveMemoryLiteTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +189,7 @@
 				80334174213544BD00CDFE2C /* Main.storyboard */,
 				8033417A213544BE00CDFE2C /* Assets.xcassets */,
 				8033417C213544BE00CDFE2C /* LaunchScreen.storyboard */,
+				80E54F622154E9A500DD4E64 /* GoogleService-Info.plist */,
 				8033417F213544BE00CDFE2C /* Info.plist */,
 				80334177213544BD00CDFE2C /* DemoAppBeenLoveMemoryLite.xcdatamodeld */,
 			);
@@ -344,6 +347,7 @@
 				8033416A213544BD00CDFE2C /* Frameworks */,
 				8033416B213544BD00CDFE2C /* Resources */,
 				F1F542D716FE5B096C8AFAFC /* [CP] Copy Pods Resources */,
+				94FA86F0570C08092FCACE87 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -441,6 +445,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8033417E213544BE00CDFE2C /* LaunchScreen.storyboard in Resources */,
+				80E54F632154E9A500DD4E64 /* GoogleService-Info.plist in Resources */,
 				8033417B213544BE00CDFE2C /* Assets.xcassets in Resources */,
 				80334176213544BD00CDFE2C /* Main.storyboard in Resources */,
 			);
@@ -479,6 +484,30 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		94FA86F0570C08092FCACE87 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DemoAppBeenLoveMemoryLite/Pods-DemoAppBeenLoveMemoryLite-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DemoAppBeenLoveMemoryLite/Pods-DemoAppBeenLoveMemoryLite-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B7B6973DF6B88531DB79BDB3 /* [CP] Check Pods Manifest.lock */ = {

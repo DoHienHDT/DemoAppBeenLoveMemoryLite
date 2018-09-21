@@ -7,9 +7,11 @@
 //
 
 import UIKit
-
+import Firebase
 class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-
+    
+    var refArtistis: DatabaseReference?
+    
     @IBOutlet weak var nameTextField: UILabel!
     @IBOutlet weak var nameGirlTextField: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -22,15 +24,18 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
     @IBOutlet weak var secondDataLabel: UILabel!
     @IBOutlet weak var loveDataLabel: UILabel!
     
-    
     @IBOutlet weak var photoImageBoy: DesignableUI!
     @IBOutlet weak var photoImageGirl: DesignableUI!
     
     @IBOutlet weak var btnTapgetNameA: UIButton!
     @IBOutlet weak var btnTapgetNameB: UIButton!
     @IBOutlet weak var photoImageLove: UIImageView!
+    
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         getUserDefaults()
         do {
             if let entity = try AppDelegate.context.fetch(Entity.fetchRequest()) as? [Entity] {
@@ -42,6 +47,8 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
         
+       
+   
         // Do any additional setup after loading the view, typically from a nib.
     }
     func getUserDefaults() {
@@ -78,6 +85,18 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         if let second = UserDefaults.standard.string(forKey: "second") {
             secondDataLabel.text = second
         }
+//        let ref = Database.database().reference()
+//        ref.child("dayLove").setValue(["year": yearDataLabel.text,
+//            "month": monthDataLabel.text,
+//            "week": weekDataLabel.text,
+//            "day": dayDataLabel.text,
+//            "hour": hourDataLabel.text,
+//            "minute": minuteDataLabel.text,
+//            "second": secondDataLabel.text])
+//        ref.child("date").setValue(loveDataLabel.text)
+//        ref.child("dateLove").setValue(dateLabel.text)
+//        ref.child("nameBoy").setValue(nameTextField.text)
+//        ref.child("nameGirl").setValue(nameGirlTextField.text)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -105,6 +124,11 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         })
         alertController?.addAction(action)
         self.present(alertController!, animated: true, completion: nil)
+        let key = refArtistis?.childByAutoId().key
+        let artist = ["id": key,
+                      "NameBoy": nameTextField.text
+                      ]
+        refArtistis?.child(key!).setValue(artist)
     }
     
     
@@ -119,6 +143,11 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
             if let textFields = alertController?.textFields {
                 let enteredText = textFields[0].text
                 self?.nameGirlTextField.text = enteredText
+                let key = self?.refArtistis?.childByAutoId().key
+                let artist = ["id": key,
+                              "NameBoy": self?.nameGirlTextField.text
+                ]
+                self?.refArtistis?.child(key!).setValue(artist)
                 UserDefaults.standard.set(self?.nameGirlTextField.text, forKey: "nu")
             }
         })
@@ -154,6 +183,21 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         UserDefaults.standard.set(hourDataLabel.text, forKey: "hour")
         UserDefaults.standard.set(minuteDataLabel.text, forKey: "minute")
         UserDefaults.standard.set(secondDataLabel.text, forKey: "second")
+        let key = refArtistis?.childByAutoId().key
+        let artist = ["id": key,
+                      "year": yearDataLabel.text,
+                      "month": monthDataLabel.text,
+                      "week": weekDataLabel.text,
+                      "day": dayDataLabel.text,
+                    "hour": hourDataLabel.text,
+                    "minute": minuteDataLabel.text,
+                    "second": secondDataLabel.text
+                      ]
+        let loveData = ["id": key,
+                        "loveData": loveDataLabel.text
+                             ]
+        refArtistis?.child(key!).setValue(artist)
+        refArtistis?.child(key!).setValue(loveData)
     }
     func senDataPicker(senData: String) {
         yearDataLabel.text = senData
@@ -250,5 +294,10 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
     //}
     func senData(name: String) {
         dateLabel.text = name + "Days"
+        let key = refArtistis?.childByAutoId().key
+        let artist = ["id": key,
+            "dateLove": dateLabel.text
+        ]
+        refArtistis?.child(key!).setValue(artist)
     }
 }

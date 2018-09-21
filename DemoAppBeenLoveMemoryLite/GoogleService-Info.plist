@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>422514462545-4mtkpmde61qhjg51utbva3947iuubg08.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.422514462545-4mtkpmde61qhjg51utbva3947iuubg08</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCjFfrX6u00WuaqN0me88fC8LVEFSyq9oA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>422514462545</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.hienhihi.DemoAppBeenLoveMemoryLite</string>
+	<key>PROJECT_ID</key>
+	<string>demoappbeenlovememorylit-4fbc7</string>
+	<key>STORAGE_BUCKET</key>
+	<string>demoappbeenlovememorylit-4fbc7.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:422514462545:ios:a1f1aa95fb6fbd42</string>
+	<key>DATABASE_URL</key>
+	<string>https://demoappbeenlovememorylit-4fbc7.firebaseio.com</string>
+</dict>
+</plist>

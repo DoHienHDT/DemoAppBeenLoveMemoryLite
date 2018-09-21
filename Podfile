@@ -7,6 +7,9 @@ target 'DemoAppBeenLoveMemoryLite' do
 
   pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'Firebase/Auth'
 
   target 'DemoAppBeenLoveMemoryLiteTests' do
     inherit! :search_paths
