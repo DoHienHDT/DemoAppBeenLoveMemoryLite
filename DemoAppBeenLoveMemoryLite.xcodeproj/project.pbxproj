@@ -37,6 +37,7 @@
 		80BC49FF214F8EC500FD5F76 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BC49FE214F8EC500FD5F76 /* MapsViewController.swift */; };
 		80BC4A01214F931A00FD5F76 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BC4A00214F931A00FD5F76 /* LocationSearchTable.swift */; };
 		80C16DB92146122B00C1F214 /* CropAreaImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C16DB82146122B00C1F214 /* CropAreaImageView.swift */; };
+		80D167B62155D48000A47F6A /* Infor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D167B52155D48000A47F6A /* Infor.swift */; };
 		80D6A77F2141349E0091DCA7 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D6A77E2141349E0091DCA7 /* DatePickerViewController.swift */; };
 		80E54F632154E9A500DD4E64 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80E54F622154E9A500DD4E64 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -97,6 +98,7 @@
 		80BC49FE214F8EC500FD5F76 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		80BC4A00214F931A00FD5F76 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		80C16DB82146122B00C1F214 /* CropAreaImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropAreaImageView.swift; sourceTree = "<group>"; };
+		80D167B52155D48000A47F6A /* Infor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Infor.swift; sourceTree = "<group>"; };
 		80D6A77E2141349E0091DCA7 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		80E54F622154E9A500DD4E64 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9051BD2C8D48B4ED2ADB1B41 /* Pods-DemoAppBeenLoveMemoryLiteTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoAppBeenLoveMemoryLiteTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoAppBeenLoveMemoryLiteTests/Pods-DemoAppBeenLoveMemoryLiteTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -217,7 +219,6 @@
 		803341A12135450200CDFE2C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				80BC49FB214F8C7A00FD5F76 /* Model Maps */,
 				8058FF6E21379008007ADA7F /* Model Weather */,
 				803341AA21354D7200CDFE2C /* Model meal */,
 			);
@@ -227,7 +228,6 @@
 		803341A22135450900CDFE2C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				80BC49FC214F8C9700FD5F76 /* View Maps */,
 				8058FF6F2137902E007ADA7F /* View Weather */,
 				803341AD213553B200CDFE2C /* View Meal */,
 			);
@@ -243,6 +243,7 @@
 				803341A42135453500CDFE2C /* MainSlideMenuViewController.swift */,
 				80D6A77E2141349E0091DCA7 /* DatePickerViewController.swift */,
 				80C16DB82146122B00C1F214 /* CropAreaImageView.swift */,
+				80D167B52155D48000A47F6A /* Infor.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -310,20 +311,6 @@
 				8015C7282140C4C60067A319 /* ExtensionDate.swift */,
 			);
 			path = "Utilies + Extension";
-			sourceTree = "<group>";
-		};
-		80BC49FB214F8C7A00FD5F76 /* Model Maps */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Model Maps";
-			sourceTree = "<group>";
-		};
-		80BC49FC214F8C9700FD5F76 /* View Maps */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "View Maps";
 			sourceTree = "<group>";
 		};
 		80BC49FD214F8CA000FD5F76 /* Controller Maps */ = {
@@ -581,6 +568,7 @@
 				8058FF7F21379331007ADA7F /* ExtensionCollertionViewWeather.swift in Sources */,
 				8058FF85213793CD007ADA7F /* WeatherCollectionViewCell.swift in Sources */,
 				8058FF83213793BF007ADA7F /* WeatherTableViewCell.swift in Sources */,
+				80D167B62155D48000A47F6A /* Infor.swift in Sources */,
 				80BC4A01214F931A00FD5F76 /* LocationSearchTable.swift in Sources */,
 				8058FF7D21379311007ADA7F /* ExtensionUIimageView.swift in Sources */,
 				8058FF782137913D007ADA7F /* WeatherViewController.swift in Sources */,

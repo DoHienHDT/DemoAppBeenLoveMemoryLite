@@ -62,7 +62,7 @@ class MealTableViewController: UITableViewController {
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
             }else{
                 // luu cac bua an
-                saveMeals()
+            
                 let newIndexPath = IndexPath(row: meals.count, section: 0)
                 // Add a new meal.
                 meals.append(meal)
@@ -70,6 +70,7 @@ class MealTableViewController: UITableViewController {
             }
             
         }
+        saveMeals()
     }
     /*
      // Override to support conditional editing of the table view.

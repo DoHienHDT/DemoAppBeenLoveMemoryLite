@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import os.log
 import Firebase
 import FirebaseAuth
 import Photos
 import FirebaseStorage
 class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
+    var infor: Infor?
+
     var refArtistis: DatabaseReference?
     lazy var storage = Storage.storage()
     @IBOutlet weak var nameTextField: UILabel!
@@ -26,92 +29,46 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
     @IBOutlet weak var minuteDataLabel: UILabel!
     @IBOutlet weak var secondDataLabel: UILabel!
     @IBOutlet weak var loveDataLabel: UILabel!
-    
     @IBOutlet weak var photoImageBoy: DesignableUI!
     @IBOutlet weak var photoImageGirl: DesignableUI!
-    
     @IBOutlet weak var btnTapgetNameA: UIButton!
     @IBOutlet weak var btnTapgetNameB: UIButton!
     @IBOutlet weak var photoImageLove: UIImageView!
     
     
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        getUserDefaults()
-        do {
-            if let entity = try AppDelegate.context.fetch(Entity.fetchRequest()) as? [Entity] {
-                photoImageBoy.image = entity.last?.imageBoy as? UIImage
-                photoImageGirl.image = entity.last?.imageGirl as? UIImage
-            }
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        if let saveInfor = loadInfor() {
+            infor = saveInfor
+        } else {
+            infor = Infor(nameBoy: "Nguoi A", nameGirl: "Nguoi B", photoImageBoy: photoImageBoy.image, photoImageGirl: photoImageGirl.image)
         }
-        
-        
-        
-        // Do any additional setup after loading the view, typically from a nib.
+        nameTextField.text = infor!.nameBoy
+        nameGirlTextField.text = infor!.nameGirl
+        photoImageBoy.image = infor?.photoImageBoy
+        photoImageGirl.image = infor?.photoImageGirl
     }
-    func getUserDefaults() {
-        if let datePicker = UserDefaults.standard.string(forKey: "datePicker") {
-            dateLabel.text = datePicker + "Days"
-        }
-        if let name = UserDefaults.standard.string(forKey: "name")   {
-            nameTextField.text = name
-        }
-        if let nu = UserDefaults.standard.string(forKey: "nu") {
-            nameGirlTextField.text = nu
-        }
-        if let loveData = UserDefaults.standard.string(forKey: "loveData") {
-            loveDataLabel.text = loveData
-        }
-        if let year = UserDefaults.standard.string(forKey: "year") {
-            yearDataLabel.text = year
-        }
-        if let month = UserDefaults.standard.string(forKey: "month") {
-            monthDataLabel.text = month
-        }
-        if let week = UserDefaults.standard.string(forKey: "week") {
-            weekDataLabel.text = week
-        }
-        if let day = UserDefaults.standard.string(forKey: "day") {
-            dayDataLabel.text = day
-        }
-        if let hour = UserDefaults.standard.string(forKey: "hour") {
-            hourDataLabel.text = hour
-        }
-        if let minute = UserDefaults.standard.string(forKey: "minute") {
-            minuteDataLabel.text = minute
-        }
-        if let second = UserDefaults.standard.string(forKey: "second") {
-            secondDataLabel.text = second
-        }
-        //        let ref = Database.database().reference()
-        //        ref.child("dayLove").setValue(["year": yearDataLabel.text,
-        //            "month": monthDataLabel.text,
-        //            "week": weekDataLabel.text,
-        //            "day": dayDataLabel.text,
-        //            "hour": hourDataLabel.text,
-        //            "minute": minuteDataLabel.text,
-        //            "second": secondDataLabel.text])
-        //        ref.child("date").setValue(loveDataLabel.text)
-        //        ref.child("dateLove").setValue(dateLabel.text)
-        //        ref.child("nameBoy").setValue(nameTextField.text)
-        //        ref.child("nameGirl").setValue(nameGirlTextField.text)
+    func  interval(start: Date, end: String) -> Int {
+        let currentCalendar = Calendar.current
+        guard let start = currentCalendar.ordinality(of: .day, in: .era, for: start) else { return 0 }
+        guard let end = currentCalendar.ordinality(of: .day, in: .era, for: Date()) else { return 0 }
+        return end - start
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIView.animate(withDuration: 1, delay: 0.25, options: [.autoreverse, .repeat], animations: {
             self.photoImageLove.frame.origin.y -= 20
         }, completion: nil)
+      
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     @IBAction func menuBtn(_ sender: UIButton) {
+        
         var alertController: UIAlertController?
         alertController = UIAlertController(title: "࿐bëën lövë mëmörÿ✿‿", message: "", preferredStyle: .alert)
         alertController?.addTextField(configurationHandler: {(textField: UITextField!) in
@@ -122,10 +79,12 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
             if let textFields = alertController?.textFields {
                 let enteredText = textFields[0].text
                 self?.nameTextField.text = enteredText
-                UserDefaults.standard.set(self?.nameTextField.text, forKey: "name")
+                self?.infor!.nameBoy = enteredText!
+                self?.saveInfor()
             }
         })
         alertController?.addAction(action)
+        
         self.present(alertController!, animated: true, completion: nil)
         let key = refArtistis?.childByAutoId().key
         let artist = ["id": key,
@@ -133,9 +92,10 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         ]
         refArtistis?.child(key!).setValue(artist)
     }
-    
+
     
     @IBAction func menuBtnGirlName(_ sender: UIButton) {
+       
         var alertController: UIAlertController?
         alertController = UIAlertController(title: "࿐bëën lövë mëmörÿ✿‿", message: "", preferredStyle: .alert)
         alertController?.addTextField(configurationHandler: {(textField: UITextField!) in
@@ -146,14 +106,16 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
             if let textFields = alertController?.textFields {
                 let enteredText = textFields[0].text
                 self?.nameGirlTextField.text = enteredText
+                self?.infor!.nameGirl = enteredText!
+                self?.saveInfor()
                 let key = self?.refArtistis?.childByAutoId().key
                 let artist = ["id": key,
                               "NameBoy": self?.nameGirlTextField.text
                 ]
                 self?.refArtistis?.child(key!).setValue(artist)
-                UserDefaults.standard.set(self?.nameGirlTextField.text, forKey: "nu")
             }
         })
+        
         alertController?.addAction(action)
         self.present(alertController!, animated: true, completion: nil)
     }
@@ -172,6 +134,7 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         let currentDate = Date()
         let components = Set<Calendar.Component>([.year, .month, .weekOfMonth, .day, .hour, .minute,.second])
         let differenceOfDate = Calendar.current.dateComponents(components, from:  formatedStartDate!, to: currentDate)
+
         yearDataLabel.text = differenceOfDate.year?.description
         monthDataLabel.text = differenceOfDate.month?.description
         weekDataLabel.text = differenceOfDate.weekOfMonth?.description
@@ -179,13 +142,6 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         hourDataLabel.text = differenceOfDate.hour?.description
         minuteDataLabel.text = differenceOfDate.minute?.description
         secondDataLabel.text = differenceOfDate.second?.description
-        UserDefaults.standard.set(yearDataLabel.text, forKey: "year")
-        UserDefaults.standard.set(monthDataLabel.text, forKey: "month")
-        UserDefaults.standard.set(weekDataLabel.text, forKey: "week")
-        UserDefaults.standard.set(dayDataLabel.text, forKey: "day")
-        UserDefaults.standard.set(hourDataLabel.text, forKey: "hour")
-        UserDefaults.standard.set(minuteDataLabel.text, forKey: "minute")
-        UserDefaults.standard.set(secondDataLabel.text, forKey: "second")
         let key = refArtistis?.childByAutoId().key
         let artist = ["id": key,
                       "year": yearDataLabel.text,
@@ -201,6 +157,7 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         ]
         refArtistis?.child(key!).setValue(artist)
         refArtistis?.child(key!).setValue(loveData)
+        saveInfor()
     }
     func senDataPicker(senData: String) {
         yearDataLabel.text = senData
@@ -235,24 +192,9 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         if check
         {
             photoImageBoy.image = selectedImage
-            if let referenceUrl = info[UIImagePickerControllerOriginalImage] as? URL  {
-                let assets = PHAsset.fetchAssets(withALAssetURLs: [referenceUrl], options: nil)
-                let asset = assets.firstObject
-                asset?.requestContentEditingInput(with: nil, completionHandler: {(contentEditingInput, info) in
-                    let imageFile = contentEditingInput?.fullSizeImageURL
-                    let filePath = Auth.auth().currentUser!.uid +
-                    "/\(Int(Date.timeIntervalSinceReferenceDate * 1000))/\(imageFile!.lastPathComponent)"
-                    let storageRef = self.storage.reference(withPath: filePath)
-                    storageRef.putFile(from: imageFile!, metadata: nil) { (metadata, error) in
-                        if let error = error {
-                            print("Error uploading: \(error)")
-                            return
-                        }
-                        self.uploadSuccess(storageRef, storagePath: filePath)
-                    }
-                    // [END uploadimage]
-                })
-            } else {
+            infor?.photoImageBoy = selectedImage
+            saveInfor()
+            // add fire base
                 guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
                 guard let imageData = UIImageJPEGRepresentation(image, 0.8) else { return }
                 let imagePath = Storage.storage().reference()
@@ -270,27 +212,10 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
                     storageRef.downloadURL(completion: {(url, error) in })
                     self.uploadSuccess(storageRef, storagePath: "imagesBoy")
                 }
-            }
         } else {
             photoImageGirl.image = selectedImage
-            if let referenceUrl = info[UIImagePickerControllerOriginalImage] as? URL  {
-                let assets = PHAsset.fetchAssets(withALAssetURLs: [referenceUrl], options: nil)
-                let asset = assets.firstObject
-                asset?.requestContentEditingInput(with: nil, completionHandler: {(contentEditingInput, info) in
-                    let imageFile = contentEditingInput?.fullSizeImageURL
-                    let filePath = Auth.auth().currentUser!.uid +
-                    "/\(Int(Date.timeIntervalSinceReferenceDate * 1000))/\(imageFile!.lastPathComponent)"
-                    let storageRef = self.storage.reference(withPath: filePath)
-                    storageRef.putFile(from: imageFile!, metadata: nil) { (metadata, error) in
-                        if let error = error {
-                            print("Error uploading: \(error)")
-                            return
-                        }
-                        self.uploadSuccess(storageRef, storagePath: filePath)
-                    }
-                    // [END uploadimage]
-                })
-            } else {
+            infor?.photoImageGirl = selectedImage
+            saveInfor()
                 guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
                 guard let imageData = UIImageJPEGRepresentation(image, 0.8) else { return }
                 let imagePath = Storage.storage().reference()
@@ -308,8 +233,6 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
                     storageRef.downloadURL(completion: {(url, error) in })
                     self.uploadSuccess(storageRef, storagePath: "imagesGirl")
                 }
-            }
-            
         }
         
         
@@ -334,53 +257,6 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
     
     
     
-    //    @IBAction func dateNumber(_ sender: UIButton) {
-    //        var alertController: UIAlertController?
-    //        alertController = UIAlertController(title: "Some Title", message: "Enter a text", preferredStyle: .alert)
-    //        alertController?.addTextField(configurationHandler: {(textField) in
-    //            self.doDatePicker()
-    //            let dateFormatter = DateFormatter()
-    //            dateFormatter.dateFormat = "dd-MM-yyyy"
-    //            textField.inputView = self.datePicker
-    //            textField.inputAccessoryView = self.toolBar
-    //            textField.text = dateFormatter.string(from: self.datePicker.date)
-    //        })
-    //        let action = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {[weak self ]
-    //             (paramAction: UIAlertAction!) in
-    //            if let textFields = alertController?.textFields {
-    //                let enteredText = textFields[0].text
-    //                self?.dateLabel.text = enteredText
-    //
-    //            }
-    //        }
-    //)
-    //        let dateFormatter = DateFormatter()
-    //        dateFormatter.dateFormat = "yyyy-MM-dd"
-    //        let startDate = "2016-05-24"
-    //        let formatedStartDate = dateFormatter.date(from: startDate)!
-    //        let currentDate = Date()
-    //        let components = Set<Calendar.Component>([.second, .minute, .weekOfMonth, .hour, .day, .month , .year])
-    //        let differenceOfDate = Calendar.current.dateComponents(components, from: (formatedStartDate), to: currentDate)
-    //        print(differenceOfDate)
-    //
-    //        alertController?.addAction(action)
-    //        self.present(alertController!, animated: true, completion: nil)
-    //    }
-    //    func doDatePicker(){
-    //        self.datePicker = UIDatePicker(frame: CGRect(x: 0, y: self.view.frame.size.height - 220, width: self.view.frame.size.width, height: 216))
-    //        self.datePicker.backgroundColor = UIColor.white
-    //        datePicker.datePickerMode = .date
-    //        toolBar.sizeToFit()
-    //        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donClicked))
-    //        toolBar.setItems([doneButton], animated: true)
-    //    }
-    //    @objc func donClicked(){
-    //        let dateFormatter = DateFormatter()
-    //        dateFormatter.dateFormat = "dd-MM-yyyy"
-    //        dateFormatter.dateStyle = .medium
-    //        dateFormatter.timeStyle = .none
-    //        dateLabel.text = dateFormatter.string(from: datePicker.date)
-    //}
     func senData(name: String) {
         dateLabel.text = name + "Days"
         let key = refArtistis?.childByAutoId().key
@@ -388,5 +264,18 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
                       "dateLove": dateLabel.text
         ]
         refArtistis?.child(key!).setValue(artist)
+    }
+    
+    private func saveInfor() {
+        let isSuccesfulSave = NSKeyedArchiver.archiveRootObject(infor!, toFile: Infor.ArchiveURL.path)
+        if isSuccesfulSave {
+             os_log("Infor successfully saved ", log: OSLog.default, type: .debug)
+        } else {
+             os_log("Failed to save infor...", log: OSLog.default, type: .error)
+        }
+    }
+    
+    private func loadInfor() -> Infor? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Infor.ArchiveURL.path) as? Infor
     }
 }
