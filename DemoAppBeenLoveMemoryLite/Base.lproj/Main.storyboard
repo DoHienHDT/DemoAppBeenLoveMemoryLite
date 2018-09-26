@@ -502,7 +502,6 @@
         <!--Your Meal-->
         <scene sceneID="S9r-xW-uOY">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="L1W-Id-JBG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="Clw-eM-4dW" customClass="MealTableViewController" customModule="DemoAppBeenLoveMemoryLite" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="GtC-1g-MIe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -554,19 +553,13 @@
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L1W-Id-JBG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-423" y="1787"/>
         </scene>
         <!--New Meal-->
         <scene sceneID="l1H-TN-ta2">
             <objects>
-                <tapGestureRecognizer id="G1A-WY-O92">
-                    <connections>
-                        <action selector="selectImageFromPhotoLibrary:" destination="Swe-gz-H8q" id="g9R-60-KM8"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gnk-3T-cjw" sceneMemberID="firstResponder"/>
-                <exit id="KfX-OD-rD5" userLabel="Exit" sceneMemberID="exit"/>
                 <viewController id="Swe-gz-H8q" customClass="MealViewController" customModule="DemoAppBeenLoveMemoryLite" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nMS-aR-WaA"/>
@@ -583,13 +576,13 @@
                                 <rect key="frame" x="16" y="64" width="343" height="436"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter meal name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f1u-pP-nNb">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="56"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" translatesAutoresizingMaskIntoConstraints="NO" id="cp5-jO-Dbh">
-                                        <rect key="frame" x="11.5" y="38" width="320" height="320"/>
+                                        <rect key="frame" x="11.5" y="64" width="320" height="320"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="cp5-jO-Dbh" secondAttribute="height" multiplier="1:1" id="MAn-nD-VsH"/>
@@ -599,7 +592,7 @@
                                         </connections>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6tU-se-GVY" customClass="RatingController" customModule="DemoAppBeenLoveMemoryLite" customModuleProvider="target">
-                                        <rect key="frame" x="45.5" y="366" width="252" height="70"/>
+                                        <rect key="frame" x="45.5" y="392" width="252" height="44"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -642,6 +635,13 @@
                         <outlet property="saveButton" destination="b9E-XN-V6J" id="Hai-rC-E1i"/>
                     </connections>
                 </viewController>
+                <tapGestureRecognizer id="G1A-WY-O92">
+                    <connections>
+                        <action selector="selectImageFromPhotoLibrary:" destination="Swe-gz-H8q" id="g9R-60-KM8"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gnk-3T-cjw" sceneMemberID="firstResponder"/>
+                <exit id="KfX-OD-rD5" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1142" y="1787"/>
         </scene>
@@ -1026,7 +1026,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q0F-KK-KGi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="516" y="940.47976011994012"/>
+            <point key="canvasLocation" x="516" y="975"/>
         </scene>
     </scenes>
     <resources>

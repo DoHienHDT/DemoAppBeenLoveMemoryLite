@@ -36,31 +36,38 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
     @IBOutlet weak var photoImageLove: UIImageView!
     
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         if let saveInfor = loadInfor() {
             infor = saveInfor
         } else {
-            infor = Infor(nameBoy: "Nguoi A", nameGirl: "Nguoi B", photoImageBoy: photoImageBoy.image, photoImageGirl: photoImageGirl.image)
+            infor = Infor(nameBoy: "Nguoi A", nameGirl: "Nguoi B", photoImageBoy: photoImageBoy.image, photoImageGirl: photoImageGirl.image, dayStart: "")
         }
+//        dateLabel.text = infor?.timeStart
+        loveDataLabel.text = infor!.dayStart
         nameTextField.text = infor!.nameBoy
         nameGirlTextField.text = infor!.nameGirl
         photoImageBoy.image = infor?.photoImageBoy
         photoImageGirl.image = infor?.photoImageGirl
+        if loveDataLabel.text != nil {
+            getday()
+        }
     }
-    func  interval(start: Date, end: String) -> Int {
+    
+    func  interval(start: Date, end: Date) -> Int {
         let currentCalendar = Calendar.current
         guard let start = currentCalendar.ordinality(of: .day, in: .era, for: start) else { return 0 }
-        guard let end = currentCalendar.ordinality(of: .day, in: .era, for: Date()) else { return 0 }
-        return end - start
+        guard let end = currentCalendar.ordinality(of: .day, in: .era, for: end) else { return 0 }
+        return start - end
     }
+ 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIView.animate(withDuration: 1, delay: 0.25, options: [.autoreverse, .repeat], animations: {
             self.photoImageLove.frame.origin.y -= 20
         }, completion: nil)
       
+        
         
     }
     override func didReceiveMemoryWarning() {
@@ -125,16 +132,18 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
             detailMainSlideMenuViewController.delegate = self
         }
     }
-    func senDataLove(data: String) {
-        loveDataLabel.text = data
+    
+    // dữ liệu luôn mới
+    
+    func  getday() {
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "dd/MM/yyyy"
-        let srartDate = data
-        let formatedStartDate = dateFormat.date(from: srartDate)
+        let srartDate = loveDataLabel.text
+        let formatedStartDate = dateFormat.date(from: srartDate!)
         let currentDate = Date()
-        let components = Set<Calendar.Component>([.year, .month, .weekOfMonth, .day, .hour, .minute,.second])
+        let components = Set<Calendar.Component>([.year, .month, .weekOfMonth, .day, .hour, .minute, .second])
         let differenceOfDate = Calendar.current.dateComponents(components, from:  formatedStartDate!, to: currentDate)
-
+        dateLabel.text = String(interval(start: currentDate, end: formatedStartDate!)) + "Days"
         yearDataLabel.text = differenceOfDate.year?.description
         monthDataLabel.text = differenceOfDate.month?.description
         weekDataLabel.text = differenceOfDate.weekOfMonth?.description
@@ -142,6 +151,33 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         hourDataLabel.text = differenceOfDate.hour?.description
         minuteDataLabel.text = differenceOfDate.minute?.description
         secondDataLabel.text = differenceOfDate.second?.description
+        
+    }
+    
+    
+    func senDataLove(data: String) {
+        loveDataLabel.text = data
+        infor?.dayStart = data
+        saveInfor()
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "dd/MM/yyyy"
+        let srartDate = data
+        let formatedStartDate = dateFormat.date(from: srartDate)
+        let currentDate = Date()
+        let components = Set<Calendar.Component>([.year, .month, .weekOfMonth, .day, .hour, .minute,.second])
+        let differenceOfDate = Calendar.current.dateComponents(components, from:  formatedStartDate!, to: currentDate)
+        yearDataLabel.text = differenceOfDate.year?.description
+        monthDataLabel.text = differenceOfDate.month?.description
+        weekDataLabel.text = differenceOfDate.weekOfMonth?.description
+        dayDataLabel.text = differenceOfDate.day?.description
+        hourDataLabel.text = differenceOfDate.hour?.description
+        minuteDataLabel.text = differenceOfDate.minute?.description
+        secondDataLabel.text = differenceOfDate.second?.description
+
+        
+        
+        
+        
         let key = refArtistis?.childByAutoId().key
         let artist = ["id": key,
                       "year": yearDataLabel.text,
@@ -159,24 +195,20 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         refArtistis?.child(key!).setValue(loveData)
         saveInfor()
     }
-    func senDataPicker(senData: String) {
-        yearDataLabel.text = senData
-    }
     @IBAction func selectedBtnImageA(_ sender: UITapGestureRecognizer) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self
         check = true
         present(imagePickerController, animated: true , completion:  nil)
-    }
+}
     @IBAction func selectedBtnImageB(_ sender: UITapGestureRecognizer) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self
         check = false
-        
         present(imagePickerController, animated: true , completion:  nil)
-    }
+}
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
@@ -187,8 +219,6 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
-        
-        
         if check
         {
             photoImageBoy.image = selectedImage
@@ -234,10 +264,6 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
                     self.uploadSuccess(storageRef, storagePath: "imagesGirl")
                 }
         }
-        
-        
-        
-        
         let entity = Entity(context: AppDelegate.context)
         entity.imageBoy = photoImageBoy.image
         entity.imageGirl = photoImageGirl.image
@@ -254,11 +280,9 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         }
     }
     
-    
-    
-    
     func senData(name: String) {
         dateLabel.text = name + "Days"
+
         let key = refArtistis?.childByAutoId().key
         let artist = ["id": key,
                       "dateLove": dateLabel.text

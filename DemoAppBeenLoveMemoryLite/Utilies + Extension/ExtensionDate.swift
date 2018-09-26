@@ -8,12 +8,10 @@
 
 import UIKit
 extension Date {
-    func  interval(start: Date, end: Date) -> Int {
+    func  interval(start: String, end: Date) -> Int {
         let currentCalendar = Calendar.current
-        guard let start = currentCalendar.ordinality(of: .day, in: .era, for: start) else { return 0 }
+        guard let start = currentCalendar.ordinality(of: .day, in: .era, for: Date()) else { return 0 }
         guard let end = currentCalendar.ordinality(of: .day, in: .era, for: end) else { return 0 }
-        
-      
         return end - start
     }
 //    func years(from date: Date) -> Int {

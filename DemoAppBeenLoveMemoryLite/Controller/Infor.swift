@@ -18,6 +18,9 @@ class Infor: NSObject, NSCoding {
     var nameGirl: String
     var photoImageBoy: UIImage?
     var photoImageGirl: UIImage?
+    var dayStart: String
+    
+    
     
     //MARK: Archiving Paths
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -30,17 +33,19 @@ class Infor: NSObject, NSCoding {
         static let nameGirl = "nameGirl"
         static let photoImageBoy = "photoImageBoy"
         static let photoImageGirl = "photoImageGirl"
+        static let dayStart = "dayStart"
     }
     
     //MARK: Initialization
     
-    init?(nameBoy: String, nameGirl: String, photoImageBoy: UIImage?, photoImageGirl: UIImage?) {
+    init?(nameBoy: String, nameGirl: String, photoImageBoy: UIImage?, photoImageGirl: UIImage?, dayStart: String) {
         
         self.nameBoy = nameBoy
         self.nameGirl = nameGirl
         self.photoImageBoy = photoImageBoy
         self.photoImageGirl = photoImageGirl
-        
+        self.dayStart = dayStart
+     
     }
     
     //MARK: NSCoding
@@ -50,10 +55,10 @@ class Infor: NSObject, NSCoding {
         aCoder.encode(nameGirl, forKey: PropertyKey.nameGirl)
         aCoder.encode(photoImageBoy, forKey: PropertyKey.photoImageBoy)
         aCoder.encode(photoImageGirl, forKey: PropertyKey.photoImageGirl)
+        aCoder.encode(dayStart, forKey: PropertyKey.dayStart)
+       
     }
-    
     required convenience init?(coder aDecoder: NSCoder) {
-        
         // The name is required. If we cannot decode a name string, the initializer should fail.
         guard let nameBoy = aDecoder.decodeObject(forKey: PropertyKey.nameBoy) as? String else {
             os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
@@ -63,48 +68,18 @@ class Infor: NSObject, NSCoding {
             os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
             return nil
         }
+        guard let dayStart = aDecoder.decodeObject(forKey: PropertyKey.dayStart) as? String else {
+            os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
+            return nil
+        }
+      
         let photoImageBoy = aDecoder.decodeObject(forKey: PropertyKey.photoImageBoy)
         // Because photo is an optional property of Meal, just use conditional cast.
        let photoImageGirl = aDecoder.decodeObject(forKey: PropertyKey.photoImageGirl)
         
+      
         // Must call designated initializer.
-        self.init(nameBoy: nameBoy, nameGirl: nameGirl, photoImageBoy: photoImageBoy as? UIImage, photoImageGirl: photoImageGirl as? UIImage)
+        self.init(nameBoy: nameBoy, nameGirl: nameGirl, photoImageBoy: photoImageBoy as? UIImage, photoImageGirl: photoImageGirl as? UIImage, dayStart: dayStart)
         
     }
 }
-
-//class LoveYou {
-//    func datePicker() -> String {
-//        return UserDefaults.standard.string(forKey: "datePicker")!
-//    }
-//    func nameBoy() -> String {
-//        return UserDefaults.standard.string(forKey: "name")!
-//    }
-//    func nameGirl() -> String {
-//        return UserDefaults.standard.string(forKey: "nu")!
-//    }
-//    func loveDay() -> String {
-//        return UserDefaults.standard.string(forKey: "loveData")!
-//    }
-//    func year() -> String {
-//        return UserDefaults.standard.string(forKey: "year")!
-//    }
-//    func month() -> String {
-//        return UserDefaults.standard.string(forKey: "month")!
-//    }
-//    func week() -> String {
-//        return UserDefaults.standard.string(forKey: "week")!
-//    }
-//    func day() -> String {
-//        return UserDefaults.standard.string(forKey: "day")!
-//    }
-//    func hour() -> String {
-//        return UserDefaults.standard.string(forKey: "hour")!
-//    }
-//    func minute() -> String {
-//        return UserDefaults.standard.string(forKey: "minute")!
-//    }
-//    func second() -> String {
-//        return UserDefaults.standard.string(forKey: "second")!
-//    }
-//}

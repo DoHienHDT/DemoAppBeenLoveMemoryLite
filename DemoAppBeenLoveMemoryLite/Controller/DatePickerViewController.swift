@@ -36,7 +36,7 @@ class DatePickerViewController: UIViewController {
         UserDefaults.standard.set(nameTextField.text!, forKey: "loveData")
         UserDefaults.standard.set(interval(start: datePicker.date, end: nameTextField.text!), forKey: "datePicker")
         dismiss(animated: true, completion: nil)
-}
+   }
     @IBAction func datePickerSelected(_ sender: UIDatePicker) {
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "dd/MM/yyyy"
