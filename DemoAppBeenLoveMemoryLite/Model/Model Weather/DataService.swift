@@ -16,7 +16,7 @@ class DataService {
         URLSession.shared.dataTask(with: url) { (data,_ ,error) in
             if error != nil {
                 print(error!)
-            } else {
+            } else { 
                 if let urlContent = data {
                     print(urlContent)
                     do {
