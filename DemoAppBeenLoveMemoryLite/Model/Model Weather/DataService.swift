@@ -8,7 +8,7 @@
 
 import UIKit
 typealias DICT = Dictionary<AnyHashable, Any>
-class DataService {
+class DataService { 
     static let shared: DataService = DataService()
     
     func getDataFromApiClosure(completion: @escaping (Forecastday) -> Void) {
