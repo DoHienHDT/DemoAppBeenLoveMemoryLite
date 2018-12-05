@@ -9,7 +9,7 @@ import UIKit
 class Forecastday {
     var name: String
     var country: String
-    var temp_c: Double
+    var temp_c: Double 
     var localtime_epoch: TimeInterval
     var weatherDay: [WeatherDay] = []
     init(dictionary: DICT) {
