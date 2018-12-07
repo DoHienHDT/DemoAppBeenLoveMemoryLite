@@ -33,6 +33,8 @@ class DataService {
             }
         .resume()
     }
+    
+    
     func getDataFromApiHourlyDay(completion: @escaping (WeatherHourly) -> Void) {
         guard let url = URL(string: "http://api.worldweatheronline.com/premium/v1/weather.ashx?key=885d24eb17e149d0b9720610180608&q=48.85,2.35&num_of_days=1&tp=1&format=json") else {return}
         URLSession.shared.dataTask(with: url) { (data,_ ,error) in
