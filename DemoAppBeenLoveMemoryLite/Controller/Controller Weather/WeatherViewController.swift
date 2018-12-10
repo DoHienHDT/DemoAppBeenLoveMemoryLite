@@ -21,7 +21,7 @@ class WeatherViewController: UIViewController, UITableViewDelegate, UITableViewD
     var weatherhourly: [WeatherHourlyDay] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         collectionview.backgroundColor = UIColor.clear
         tableview.backgroundColor = UIColor.clear
         DataService.shared.getDataFromApiClosure { [unowned self] (forecastDay) in
