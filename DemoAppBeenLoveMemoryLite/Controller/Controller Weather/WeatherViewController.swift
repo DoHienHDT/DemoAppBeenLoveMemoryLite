@@ -25,7 +25,7 @@ class WeatherViewController: UIViewController, UITableViewDelegate, UITableViewD
         collectionview.backgroundColor = UIColor.clear
         tableview.backgroundColor = UIColor.clear
         DataService.shared.getDataFromApiClosure { [unowned self] (forecastDay) in
-            self.nameLabel.text = forecastDay.name
+            self.nameLabel.text = forecastDay.name  
             self.countryLabel.text = forecastDay.country
             self.tempcLabel.text = String(Int(forecastDay.temp_c)) + "º"
             self.todayLabel.text = String(forecastDay.localtime_epoch.getDaysOfWeek())
