@@ -40,6 +40,8 @@
 		80D167B62155D48000A47F6A /* Infor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D167B52155D48000A47F6A /* Infor.swift */; };
 		80D6A77F2141349E0091DCA7 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D6A77E2141349E0091DCA7 /* DatePickerViewController.swift */; };
 		80E54F632154E9A500DD4E64 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80E54F622154E9A500DD4E64 /* GoogleService-Info.plist */; };
+		B36C399021C8A94300D3A30B /* PopoverView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B36C398F21C8A94300D3A30B /* PopoverView.storyboard */; };
+		B36C399221C8A96E00D3A30B /* ViewControllerPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C399121C8A96E00D3A30B /* ViewControllerPopover.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +105,8 @@
 		80E54F622154E9A500DD4E64 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9051BD2C8D48B4ED2ADB1B41 /* Pods-DemoAppBeenLoveMemoryLiteTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoAppBeenLoveMemoryLiteTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoAppBeenLoveMemoryLiteTests/Pods-DemoAppBeenLoveMemoryLiteTests.release.xcconfig"; sourceTree = "<group>"; };
 		AEE634ED0665A587BF2106D5 /* Pods-DemoAppBeenLoveMemoryLiteUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoAppBeenLoveMemoryLiteUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoAppBeenLoveMemoryLiteUITests/Pods-DemoAppBeenLoveMemoryLiteUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B36C398F21C8A94300D3A30B /* PopoverView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PopoverView.storyboard; sourceTree = "<group>"; };
+		B36C399121C8A96E00D3A30B /* ViewControllerPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerPopover.swift; sourceTree = "<group>"; };
 		EAFEBDD28102883E37F181CC /* Pods_DemoAppBeenLoveMemoryLiteTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoAppBeenLoveMemoryLiteTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F721A5CF282285368D27F763 /* Pods_DemoAppBeenLoveMemoryLiteUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoAppBeenLoveMemoryLiteUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -183,6 +187,7 @@
 		8033416F213544BD00CDFE2C /* DemoAppBeenLoveMemoryLite */ = {
 			isa = PBXGroup;
 			children = (
+				B36C398E21C8A90900D3A30B /* PopoverViewController */,
 				80334170213544BD00CDFE2C /* AppDelegate.swift */,
 				803341A12135450200CDFE2C /* Model */,
 				803341A22135450900CDFE2C /* View */,
@@ -322,6 +327,15 @@
 			path = "Controller Maps";
 			sourceTree = "<group>";
 		};
+		B36C398E21C8A90900D3A30B /* PopoverViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B36C399121C8A96E00D3A30B /* ViewControllerPopover.swift */,
+				B36C398F21C8A94300D3A30B /* PopoverView.storyboard */,
+			);
+			path = PopoverViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -432,6 +446,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8033417E213544BE00CDFE2C /* LaunchScreen.storyboard in Resources */,
+				B36C399021C8A94300D3A30B /* PopoverView.storyboard in Resources */,
 				80E54F632154E9A500DD4E64 /* GoogleService-Info.plist in Resources */,
 				8033417B213544BE00CDFE2C /* Assets.xcassets in Resources */,
 				80334176213544BD00CDFE2C /* Main.storyboard in Resources */,
@@ -583,6 +598,7 @@
 				8058FF762137909D007ADA7F /* WeatherHourly.swift in Sources */,
 				80334171213544BD00CDFE2C /* AppDelegate.swift in Sources */,
 				8058FF7221379063007ADA7F /* DataService.swift in Sources */,
+				B36C399221C8A96E00D3A30B /* ViewControllerPopover.swift in Sources */,
 				80BC49FF214F8EC500FD5F76 /* MapsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
