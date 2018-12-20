@@ -15,7 +15,7 @@ import FirebaseStorage
 class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     var infor: Infor?
-
+    var timer = Timer()
     var refArtistis: DatabaseReference?
     lazy var storage = Storage.storage()
     @IBOutlet weak var nameTextField: UILabel!
@@ -49,9 +49,10 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         nameGirlTextField.text = infor!.nameGirl
         photoImageBoy.image = infor?.photoImageBoy
         photoImageGirl.image = infor?.photoImageGirl
-        if loveDataLabel.text != nil {
-            getday()
-        }
+//        if loveDataLabel.text != nil {
+//            getday()
+//        }
+     
     }
     
     func  interval(start: Date, end: Date) -> Int {
@@ -151,9 +152,7 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         hourDataLabel.text = differenceOfDate.hour?.description
         minuteDataLabel.text = differenceOfDate.minute?.description
         secondDataLabel.text = differenceOfDate.second?.description
-        
     }
-    
     
     func senDataLove(data: String) {
         loveDataLabel.text = data
@@ -173,11 +172,7 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         hourDataLabel.text = differenceOfDate.hour?.description
         minuteDataLabel.text = differenceOfDate.minute?.description
         secondDataLabel.text = differenceOfDate.second?.description
-
-        
-        
-        
-        
+   
         let key = refArtistis?.childByAutoId().key
         let artist = ["id": key,
                       "year": yearDataLabel.text,
@@ -195,6 +190,7 @@ class MainSlideMenuViewController: UIViewController , DatePickerViewControllerDe
         refArtistis?.child(key!).setValue(loveData)
         saveInfor()
     }
+    
     @IBAction func selectedBtnImageA(_ sender: UITapGestureRecognizer) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = .photoLibrary

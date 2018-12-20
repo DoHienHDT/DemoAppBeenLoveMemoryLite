@@ -11,7 +11,7 @@ target 'DemoAppBeenLoveMemoryLite' do
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
-
+  pod "BmoImageLoader"
   target 'DemoAppBeenLoveMemoryLiteTests' do
     inherit! :search_paths
     # Pods for testing
